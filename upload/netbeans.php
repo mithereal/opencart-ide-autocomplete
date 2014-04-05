@@ -32,8 +32,17 @@ $permission =array();
         $files = glob($basedir. 'model/*/*.php');
         foreach ($files as $file) {
             $data = explode('/', dirname($file));
-            $permission[] = 'Model' . ucfirst(end($data)) . ucfirst(basename($file, '.php')) . ' $model_' . end($data) . '_' . basename($file, '.php');
-            
+			
+			$names = explode('_', basename($file, '.php'));
+			if( !$names ){ 
+			$names = array(basename($file, '.php')); 
+			}
+			$permission[] = 'Model' . ucfirst(end($data)) . 
+			implode('', array_map( function($x){
+				 return ucfirst($x);
+				 }, $names )) . ' $model_' . end($data) . '_' .
+				  basename($file, '.php');
+			
         }
         return $permission;
     }
