@@ -11,6 +11,7 @@ $properties[]='Loader $load';
 $properties[]='Config $config';
 $properties[]='DB $db';
 $properties[]='Log $log';
+$properties[]='Session $session';
 $properties[]='Request $request';
 $properties[]='Response $response';
 $properties[]='Cache $cache';
