@@ -87,7 +87,7 @@
         foreach ( $textToInsert as $val ) {
             $tempFile .= sprintf( "\t* @property %s%s", $val, PHP_EOL );
         }
-        $tempFile .= sprintf( "\t**/%s%s%s", PHP_EOL, $needle, PHP_EOL );
+        $tempFile .= sprintf( "\t**/%s%s%s", PHP_EOL, $searchLine, PHP_EOL );
         while ( !$file->eof() ) {
             $tempFile .= $file->fgets();
         }
