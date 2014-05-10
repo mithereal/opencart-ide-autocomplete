@@ -1,6 +1,6 @@
-opencart-netbeans
+opencart-ide-autocomplete
 =================
- Netbeans Autocomplete Support will allow for autocompletion of classes:methods in NetBeans
+ IDE Autocomplete Support will allow for autocompletion of classes:methods in NetBeans,phpstorm and others
  
 Usage
 =====
