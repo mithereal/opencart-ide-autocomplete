@@ -16,7 +16,7 @@
         , 'Loader $load'
     );
 
-    if ( isset( $_REQUEST['rewrite'] ) ){
+    if (is_writable($pathToController)){
         $rewriteController = true;
     }
 
@@ -97,7 +97,7 @@
         fwrite( $fp, $tempFile );
         fclose( $fp );
         
-        echo '<h3>Аbstract class Controller successfully rewrited.</h3>';
+        echo '<h3>Аutocomplete Properties Successfully Installed.</h3>';
     } else {
         echo '<h3>Place the following code above abstract class Controller in your system/engine/controller.php file</h3><hr>';
         echo '/**','<br>';

@@ -4,5 +4,4 @@ opencart-ide-autocomplete
  
 Usage
 =====
- Run script netbeans.php
- Copy the generated code to system/engine/controller.php after the opening php tag
+ Run script ideac.php
