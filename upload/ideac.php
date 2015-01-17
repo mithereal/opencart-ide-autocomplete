@@ -105,7 +105,7 @@
     } else {
         $html.=  '<h3>Place the following code above abstract class Controller in your system/engine/controller.php file</h3><hr>';
        	
-        $properties='/**';
+        $properties='/**'."\n";
         
         foreach($textToInsert as $val)
         {
