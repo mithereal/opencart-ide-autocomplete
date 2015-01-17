@@ -1,26 +1,7 @@
 <?php
     require 'config.php';
-
-    $rewriteController = false;
-    $pathToController  = DIR_SYSTEM . 'engine/controller.php';
-    $searchLine        = 'abstract class Controller {';
-    $catalogPath       = 'catalog/';
-    $adminPath         = 'admin/';
-
-    $properties = array(
-          'string $id'
-        , 'string $template'
-        , 'array $children'
-        , 'array $data'
-        , 'string $output'
-        , 'Loader $load'
-    );
-
-    if (is_writable($pathToController)){
-        $rewriteController = true;
-    }
-
-    function getModels( $basedir = DIR_APPLICATION ) {
+    
+      function getModels( $basedir = DIR_APPLICATION ) {
         $permission = array();
         $files      = glob( $basedir . 'model/*/*.php' );
         foreach ( $files as $file ) {
@@ -68,6 +49,29 @@
         return feof( $fp ) ? null : $lineNumber;
     }
 
+
+    $rewriteController = false;
+    $pathToController  = DIR_SYSTEM . 'engine/controller.php';
+    $searchLine        = 'abstract class Controller {';
+    $catalogPath       = 'catalog/';
+    $adminPath         = 'admin/';
+
+    $properties = array(
+          'string $id'
+        , 'string $template'
+        , 'array $children'
+        , 'array $data'
+        , 'string $output'
+        , 'Loader $load'
+    );
+    
+ $html ='<html><head><script type="text/javascript" src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"></script>
+</head><body>';
+ 
+    if (is_writable($pathToController)){
+        $rewriteController = true;
+    }
+
     $catalogModels   = getModels();
     $adminModels     = getModels( str_ireplace( $catalogPath, $adminPath, DIR_APPLICATION ) );
     $startupClasses  = getClasses( DIR_SYSTEM . 'startup.php' );
@@ -96,15 +100,42 @@
         $fp = fopen( $pathToController, 'w' );
         fwrite( $fp, $tempFile );
         fclose( $fp );
-        
-        echo '<h3>Аutocomplete Properties Successfully Installed.</h3>';
+       
+        $html.= '<h3>Аutocomplete Properties Successfully Installed.</h3>';
     } else {
-        echo '<h3>Place the following code above abstract class Controller in your system/engine/controller.php file</h3><hr>';
-        echo '/**','<br>';
+        $html.=  '<h3>Place the following code above abstract class Controller in your system/engine/controller.php file</h3><hr>';
+       	
+        $properties='/**';
+        
         foreach($textToInsert as $val)
         {
-            echo '* @property '.$val.'<br>';
+            $properties .= '* @property '.$val."\n";
         }
-        echo '**/','<br>';
-        echo '<hr>';
+        
+        $properties .= '**/'."\n";
+        
+        $propnum=count($textToInsert);
+        
+        $html.=  '<textarea rows="'. $propnum .'" cols="200" id= "code">'."\n";
+        $html.= $properties;
+        $html.=  "</textarea>";
+        $html.=  '<hr>';
     }
+ $html.=  '<script language="javascript" type="text/javascript">
+$(document).ready(function () {
+$("#code").focus(function() {
+    var $this = $(this);
+    $this.select();
+
+    // Work around Chromes little problem
+    $this.mouseup(function() {
+        // Prevent further mouseup intervention
+        $this.unbind("mouseup");
+        return false;
+    });
+});
+});
+</script>';	    
+$html.= "</body></html>";
+echo $html;
+
