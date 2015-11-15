@@ -66,6 +66,7 @@ $properties = array_filter(
                 array $data;
                 string $output;
                 Loader $load;
+                User $user;
                 Url $url;
                 Log $log;
                 Request $request;
